@@ -83,7 +83,6 @@ export default function themeTypography(theme) {
             }
         },
         customInputSelect: {
-            minHeight: '1.4375em',
             marginTop: 8,
             marginBottom: 8,
             '& > label': {
@@ -94,9 +93,12 @@ export default function themeTypography(theme) {
                     top: '5px'
                 }
             },
+            '& > div > div': {
+                marginTop: '11px !important'
+            },
             '& > div > input': {
                 padding: '30.5px 14px 11.5px !important',
-                position: 'relative'
+                position: 'absolute'
             },
             '& legend': {
                 display: 'none'

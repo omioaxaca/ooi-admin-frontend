@@ -1,6 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -8,17 +6,14 @@ import {
     Box,
     Button,
     Checkbox,
-    Divider,
     FormControl,
     FormControlLabel,
     FormHelperText,
-    Grid,
     IconButton,
     InputAdornment,
     InputLabel,
     OutlinedInput,
-    Stack,
-    Typography
+    Stack
 } from '@material-ui/core';
 
 // third party
@@ -32,8 +27,6 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 // assets
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-
-import Google from 'assets/images/icons/social-google.svg';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -79,14 +72,8 @@ const useStyles = makeStyles((theme) => ({
 const FirebaseLogin = (props, { ...others }) => {
     const classes = useStyles();
 
-    const customization = useSelector((state) => state.customization);
     const scriptedRef = useScriptRef();
     const [checked, setChecked] = React.useState(true);
-
-    const googleHandler = async () => {
-        console.error('Login');
-    };
-
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -98,63 +85,18 @@ const FirebaseLogin = (props, { ...others }) => {
 
     return (
         <>
-            <Grid container direction="column" justifyContent="center" spacing={2}>
-                <Grid item xs={12}>
-                    <AnimateButton>
-                        <Button
-                            disableElevation
-                            fullWidth
-                            className={classes.redButton}
-                            onClick={googleHandler}
-                            size="large"
-                            variant="contained"
-                        >
-                            <img src={Google} alt="google" width="20px" className={classes.loginIcon} /> Sign in with Google
-                        </Button>
-                    </AnimateButton>
-                </Grid>
-                <Grid item xs={12}>
-                    <Box
-                        sx={{
-                            alignItems: 'center',
-                            display: 'flex'
-                        }}
-                    >
-                        <Divider className={classes.signDivider} orientation="horizontal" />
-                        <AnimateButton>
-                            <Button
-                                variant="outlined"
-                                className={classes.signText}
-                                sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                disableRipple
-                                disabled
-                            >
-                                OR
-                            </Button>
-                        </AnimateButton>
-                        <Divider className={classes.signDivider} orientation="horizontal" />
-                    </Box>
-                </Grid>
-                <Grid item xs={12} container alignItems="center" justifyContent="center">
-                    <Box
-                        sx={{
-                            mb: 2
-                        }}
-                    >
-                        <Typography variant="subtitle1">Sign in with Email address</Typography>
-                    </Box>
-                </Grid>
-            </Grid>
-
             <Formik
                 initialValues={{
-                    email: 'info@codedthemes.com',
-                    password: '123456',
+                    email: '',
+                    password: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    email: Yup.string()
+                        .email('Debe ser un Correo Electrónico valido.')
+                        .max(255)
+                        .required('Correo Electrónico es requerido'),
+                    password: Yup.string().max(255).required('Contraseña requerida')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
@@ -175,7 +117,7 @@ const FirebaseLogin = (props, { ...others }) => {
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit} {...others}>
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} className={classes.loginInput}>
-                            <InputLabel htmlFor="outlined-adornment-email-login">Email Address / Username</InputLabel>
+                            <InputLabel htmlFor="outlined-adornment-email-login">Correo Electrónico</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-email-login"
                                 type="email"
@@ -183,7 +125,7 @@ const FirebaseLogin = (props, { ...others }) => {
                                 name="email"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                label="Email Address / Username"
+                                label="Correo Electrónico"
                                 inputProps={{
                                     classes: {
                                         notchedOutline: classes.notchedOutline
@@ -199,7 +141,7 @@ const FirebaseLogin = (props, { ...others }) => {
                         </FormControl>
 
                         <FormControl fullWidth error={Boolean(touched.password && errors.password)} className={classes.loginInput}>
-                            <InputLabel htmlFor="outlined-adornment-password-login">Password</InputLabel>
+                            <InputLabel htmlFor="outlined-adornment-password-login">Contraseña</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-password-login"
                                 type={showPassword ? 'text' : 'password'}
@@ -243,17 +185,8 @@ const FirebaseLogin = (props, { ...others }) => {
                                         color="primary"
                                     />
                                 }
-                                label="Remember me"
+                                label="Recuérdame"
                             />
-                            <Typography
-                                variant="subtitle1"
-                                component={Link}
-                                to="/pages/forgot-password/forgot-password3"
-                                color="secondary"
-                                sx={{ textDecoration: 'none' }}
-                            >
-                                Forgot Password?
-                            </Typography>
                         </Stack>
                         {errors.submit && (
                             <Box
@@ -280,7 +213,7 @@ const FirebaseLogin = (props, { ...others }) => {
                                     variant="contained"
                                     color="secondary"
                                 >
-                                    Sign in
+                                    Iniciar Sesión
                                 </Button>
                             </AnimateButton>
                         </Box>

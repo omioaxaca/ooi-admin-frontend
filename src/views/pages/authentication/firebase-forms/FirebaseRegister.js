@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 // material-ui
@@ -88,11 +88,8 @@ const FirebaseRegister = ({ ...others }) => {
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const [showPassword, setShowPassword] = React.useState(false);
-    const [checked, setChecked] = React.useState(true);
-    const [birthdayValue, setBirthdayValue] = React.useState(null);
     const [schoolLevel, setSchoolLevel] = React.useState('');
     const [schoolGrade, setSchoolGrade] = React.useState('');
-    const [firstNameValue, setFirstNameValue] = React.useState('');
 
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
@@ -147,20 +144,30 @@ const FirebaseRegister = ({ ...others }) => {
         setSchoolGrade(firstSchoolGradeKey);
     };
 
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
-
     return (
         <>
             <Formik
                 initialValues={{
+                    first_name: '',
+                    last_name: '',
+                    email: '',
+                    password: '',
+                    gender: '',
+                    school_level: '',
+                    school_grade: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     first_name: Yup.string().max(255).required('Nombre requerido'),
+                    last_name: Yup.string().max(255).required('Apellidos requerido'),
+                    gender: Yup.string().required('Género requerido'),
                     email: Yup.string().email('Debe ser un correo válido').max(255).required('Correo requerido'),
-                    password: Yup.string().max(255).required('Contraseña Requerida')
+                    password: Yup.string().max(255).required('Contraseña Requerida'),
+                    phone_number: Yup.string().required('Celular requerido'),
+                    birthday: Yup.string().required('Fecha de nacimiento requerido'),
+                    school_name: Yup.string().required('Nombre de escuela requerido'),
+                    school_level: Yup.string().required('Nivel educativo requerido'),
+                    school_grade: Yup.string().required('Año o semestre requerido')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     console.log(values);
@@ -179,11 +186,13 @@ const FirebaseRegister = ({ ...others }) => {
                     }
                 }}
             >
-                {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched }) => (
+                {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit} {...others}>
                         <Grid item xs={12}>
                             <Box
                                 sx={{
+                                    paddingTop: '16px',
+                                    paddingBottom: '16px',
                                     alignItems: 'center',
                                     display: 'flex'
                                 }}
@@ -204,8 +213,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     margin="normal"
                                     name="first_name"
                                     type="text"
-                                    value={firstNameValue}
-                                    onChange={(event) => setFirstNameValue(event.target.value)}
+                                    onChange={handleChange}
                                     className={classes.loginInput}
                                 />
                             </Grid>
@@ -216,13 +224,21 @@ const FirebaseRegister = ({ ...others }) => {
                                     margin="normal"
                                     name="last_name"
                                     type="text"
+                                    onChange={handleChange}
                                     className={classes.loginInput}
                                 />
                             </Grid>
                             <Grid item xs={12} md={4}>
                                 <FormControl fullWidth className={classes.selectInput}>
                                     <InputLabel htmlFor="outlined-adornment-password-register">Género</InputLabel>
-                                    <Select value="" labelId="gender" id="gender-select" name="gender" type="text">
+                                    <Select
+                                        value={values.gender}
+                                        labelId="gender"
+                                        id="gender-select"
+                                        name="gender"
+                                        type="text"
+                                        onChange={handleChange}
+                                    >
                                         <MenuItem value="F">Femenino</MenuItem>
                                         <MenuItem value="M">Masculino</MenuItem>
                                         <MenuItem value="O">Otro</MenuItem>
@@ -324,6 +340,8 @@ const FirebaseRegister = ({ ...others }) => {
                                     margin="normal"
                                     name="phone_number"
                                     type="text"
+                                    value={values.phone_number}
+                                    onChange={handleChange}
                                     className={classes.loginInput}
                                 />
                             </Grid>
@@ -333,10 +351,8 @@ const FirebaseRegister = ({ ...others }) => {
                                         label="Fecha de nacimiento"
                                         name="birthday"
                                         inputFormat="dd/MM/yyyy"
-                                        value={birthdayValue}
-                                        onChange={(newValue) => {
-                                            setBirthdayValue(newValue);
-                                        }}
+                                        value={values.birthday}
+                                        onChange={handleChange}
                                         renderInput={(params) => (
                                             <TextField
                                                 {...params}
@@ -355,6 +371,8 @@ const FirebaseRegister = ({ ...others }) => {
                         <Grid item xs={12}>
                             <Box
                                 sx={{
+                                    paddingTop: '16px',
+                                    paddingBottom: '16px',
                                     alignItems: 'center',
                                     display: 'flex'
                                 }}
@@ -375,6 +393,8 @@ const FirebaseRegister = ({ ...others }) => {
                                     margin="normal"
                                     name="school_name"
                                     type="text"
+                                    value={values.school_name}
+                                    onChange={handleChange}
                                     className={classes.loginInput}
                                 />
                             </Grid>
@@ -386,8 +406,11 @@ const FirebaseRegister = ({ ...others }) => {
                                         id="school_level-select"
                                         name="school_level"
                                         type="text"
-                                        value={schoolLevel}
-                                        onChange={handleChangeSchoolLevel}
+                                        value={values.school_level}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                            handleChangeSchoolLevel(e);
+                                        }}
                                     >
                                         <MenuItem value="primaria">Primaria</MenuItem>
                                         <MenuItem value="secundaria">Secundaria</MenuItem>
@@ -397,7 +420,7 @@ const FirebaseRegister = ({ ...others }) => {
                             </Grid>
                             <Grid item xs={12} md={4}>
                                 <FormControl fullWidth className={classes.selectInput}>
-                                    <InputLabel shrink={schoolGrade != null} htmlFor="outlined-adornment-password-register">
+                                    <InputLabel shrink={schoolGrade !== ''} htmlFor="outlined-adornment-password-register">
                                         Año o Semestre
                                     </InputLabel>
                                     <Select
@@ -405,10 +428,8 @@ const FirebaseRegister = ({ ...others }) => {
                                         id="school_grade-select"
                                         name="school_grade"
                                         type="text"
-                                        value={schoolGrade}
-                                        onChange={(event) => {
-                                            setSchoolGrade(event.target.value);
-                                        }}
+                                        value={values.school_grade}
+                                        onChange={handleChange}
                                     >
                                         {currentSchoolYears}
                                     </Select>
@@ -421,8 +442,9 @@ const FirebaseRegister = ({ ...others }) => {
                                 <FormControlLabel
                                     control={
                                         <Checkbox
-                                            checked={checked}
-                                            onChange={(event) => setChecked(event.target.checked)}
+                                            value={values.checked}
+                                            checked={values.checked}
+                                            onChange={handleChange}
                                             name="checked"
                                             color="primary"
                                         />

@@ -47,10 +47,10 @@ const Register = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Regístrate
+                                                        Bienvenido(a) a la Olimpiada
                                                     </Typography>
                                                     <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                                        A continuación llena la siguiente información que se te solicita.
+                                                        A continuación llena el siguiente formulario para confirmar tu registro.
                                                     </Typography>
                                                 </Stack>
                                             </Grid>
@@ -66,7 +66,7 @@ const Register = () => {
                                         <Grid item container direction="column" alignItems="center" xs={12}>
                                             <Typography
                                                 component={RouterLink}
-                                                to="/pages/login/login3"
+                                                to="/iniciar-sesion"
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
                                             >

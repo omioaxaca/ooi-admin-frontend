@@ -10,7 +10,7 @@ const AuthFooter = () => (
         <Typography color="#FFFFFF" variant="subtitle2" component={Link} href="https://omioaxaca.org" target="_blank" underline="hover">
             www.omioaxaca.org
         </Typography>
-        <Typography color="#FFFFFF" variant="subtitle2" component={Link} href="https://omioaxaca.com" target="_blank" underline="hover">
+        <Typography color="#FFFFFF" variant="subtitle2" component={Link} href="https://omioaxaca.org" target="_blank" underline="hover">
             &copy; comité ooi
         </Typography>
     </Stack>

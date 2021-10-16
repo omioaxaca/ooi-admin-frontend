@@ -47,10 +47,10 @@ const Login = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Hi, Welcome Back
+                                                        Iniciar sesión
                                                     </Typography>
                                                     <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                                        Enter your credentials to continue
+                                                        Ingresa tus credenciales para acceder a tu cuenta.
                                                     </Typography>
                                                 </Stack>
                                             </Grid>
@@ -66,11 +66,11 @@ const Login = () => {
                                         <Grid item container direction="column" alignItems="center" xs={12}>
                                             <Typography
                                                 component={RouterLink}
-                                                to="/pages/register/register3"
+                                                to="/registro"
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
                                             >
-                                                Don&apos;t have an account?
+                                                No tienes una cuenta? Regístrate.
                                             </Typography>
                                         </Grid>
                                     </Grid>
