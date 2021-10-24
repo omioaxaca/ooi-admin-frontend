@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@material-ui/core/styles';
@@ -29,9 +28,9 @@ const Register = () => {
                             <AuthCardWrapper>
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                                     <Grid item sx={{ mb: 3 }}>
-                                        <RouterLink to="#">
+                                        <a href="https://omioaxaca.org">
                                             <Logo />
-                                        </RouterLink>
+                                        </a>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid
@@ -62,7 +61,7 @@ const Register = () => {
                                     <Grid item xs={12}>
                                         <Divider />
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    {/* <Grid item xs={12}>
                                         <Grid item container direction="column" alignItems="center" xs={12}>
                                             <Typography
                                                 component={RouterLink}
@@ -73,7 +72,7 @@ const Register = () => {
                                                 Ya tienes una cuenta?
                                             </Typography>
                                         </Grid>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             </AuthCardWrapper>
                         </Grid>
