@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const registerUserUrl = 'http://admin.omioaxaca.org/auth/local/register';
+const registerUserUrl = 'https://admin.omioaxaca.org/auth/local/register';
 
 export const registerUser = async (user) => {
     const newUser = {
