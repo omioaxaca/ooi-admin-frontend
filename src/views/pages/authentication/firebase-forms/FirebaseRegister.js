@@ -574,8 +574,10 @@ const FirebaseRegister = ({ ...others }) => {
                             </Box>
 
                             <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                Gracias por completar tu registro en la olimpiada, se te enviará un correo electrónico con las fechas
-                                importantes que debes tener en cuenta, así como el cuando comenzarán las clases y el link de la reunión.
+                                Gracias por completar tu registro en la olimpiada, favor de regresar el 1 de diciembre a la pagina para
+                                hacer tu examen de diagnostico, adicionalmente se te enviará un correo electrónico a finales de este mes con
+                                las fechas importantes que debes tener en cuenta, así como el cuando comenzarán las clases y el link de la
+                                reunión.
                             </Typography>
 
                             <Box
